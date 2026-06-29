@@ -78,9 +78,29 @@
       font-weight: 700;
       color: var(--primary-active);
       letter-spacing: .01em;
-      margin-bottom: 0;
+      margin-bottom: 14px;
+    }
+    .entry-input {
+      width: 180px;
+      max-width: 100%;
+      height: 42px;
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      padding: 0 12px;
+      font-size: 18px;
+      text-align: center;
+      letter-spacing: .25em;
+      font-family: inherit;
+      outline: none;
+      color: var(--text);
+      background: var(--surface);
+    }
+    .entry-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(22,119,255,.12);
     }
     .app { max-width: 1600px; margin: 0 auto; }
+    .app.hidden { display: none; }
 
     /* 顶栏 */
     .top-nav {
@@ -853,9 +873,10 @@
 <div class="entry-gate" id="entryGate" role="dialog" aria-modal="true" aria-label="页面访问验证">
   <div class="entry-card">
     <div class="entry-title">hello world</div>
+    <input id="entryInput" class="entry-input" type="password" inputmode="numeric" autocomplete="off" />
   </div>
 </div>
-<div class="app">
+<div class="app hidden" id="mainApp">
   <header class="top-nav">
     <div class="nav-inner">
       <div class="brand">
@@ -1114,40 +1135,13 @@
   </footer>
 </div>
 
-  <script src="school-data.js"></script>
-  <script src="school-pathways.js"></script>
-  <script src="school-links.js"></script>
-  <script src="school-metrics.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-  <script>
+  <script id="mainAppScript" type="text/plain">
   const TYPE_LABELS = { high:'高中', middle:'初中', primary:'小学', kindergarten:'幼儿园' };
   const TIER_LABELS = { 1:'第一梯队', 2:'第二梯队', 3:'第三梯队', 4:'第四梯队' };
   const TYPE_ORDER = { high: 0, middle: 1, primary: 2, kindergarten: 3 };
   const TYPE_BADGE = { high:'high', middle:'mid', primary:'pri', kindergarten:'kg' };
-  const ENTRY_PASSCODE = '789';
 
   let activeId = null;
-  let entryBuffer = '';
-
-  function unlockEntryGate() {
-    const gate = document.getElementById('entryGate');
-    if (!gate) return;
-    gate.classList.add('hidden');
-    window.removeEventListener('keydown', onEntryKeydown);
-  }
-
-  function pushEntryInput(digit) {
-    entryBuffer = (entryBuffer + String(digit)).slice(-ENTRY_PASSCODE.length);
-    if (entryBuffer === ENTRY_PASSCODE) unlockEntryGate();
-  }
-
-  function onEntryKeydown(e) {
-    if (/^[0-9]$/.test(e.key)) pushEntryInput(e.key);
-  }
-
-  function initEntryGate() {
-    window.addEventListener('keydown', onEntryKeydown);
-  }
 
   // ========== 筛选与列表 ==========
   let filters = {
@@ -1767,8 +1761,57 @@
   });
 
   // ========== 初始化 ==========
-  initEntryGate();
   applyFilters();
+  </script>
+  <script>
+  (() => {
+    const PASSCODE = '789';
+    const gate = document.getElementById('entryGate');
+    const input = document.getElementById('entryInput');
+    const app = document.getElementById('mainApp');
+    const mainAppScript = document.getElementById('mainAppScript');
+    let unlocked = false;
+
+    const scriptsToLoad = [
+      'school-data.js',
+      'school-pathways.js',
+      'school-links.js',
+      'school-metrics.js',
+      'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js'
+    ];
+
+    function loadScript(src) {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.async = false;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.body.appendChild(script);
+      });
+    }
+
+    async function unlockAndBoot() {
+      if (unlocked) return;
+      unlocked = true;
+      gate.remove();
+      app.classList.remove('hidden');
+      for (const src of scriptsToLoad) {
+        await loadScript(src);
+      }
+      const bootScript = document.createElement('script');
+      bootScript.text = mainAppScript.textContent;
+      document.body.appendChild(bootScript);
+    }
+
+    input.addEventListener('input', () => {
+      const digits = input.value.replace(/\D/g, '');
+      input.value = digits;
+      if (digits.includes(PASSCODE)) unlockAndBoot();
+    });
+
+    requestAnimationFrame(() => input.focus());
+  })();
   </script>
 </body>
 </html>
