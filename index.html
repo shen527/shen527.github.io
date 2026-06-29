@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>苏州教育资源洞察平台 · 2023–2025</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1677ff;
+      --primary-hover: #4096ff;
+      --primary-active: #0958d9;
+      --primary-bg: #e6f4ff;
+      --primary-border: #91caff;
+      --success: #52c41a;
+      --warning: #faad14;
+      --error: #ff4d4f;
+      --bg: #f0f2f5;
+      --surface: #ffffff;
+      --surface-2: #fafafa;
+      --surface-3: #f5f5f5;
+      --border: #f0f0f0;
+      --border-strong: #d9d9d9;
+      --text: rgba(0,0,0,.88);
+      --text-secondary: rgba(0,0,0,.65);
+      --text-tertiary: rgba(0,0,0,.45);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.03), 0 1px 6px -1px rgba(0,0,0,.02), 0 2px 4px rgba(0,0,0,.02);
+      --shadow-md: 0 6px 16px rgba(0,0,0,.08), 0 3px 6px -4px rgba(0,0,0,.12);
+      --shadow-lg: 0 12px 32px rgba(0,0,0,.12);
+      --radius: 8px;
+      --radius-lg: 12px;
+      --font: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --high: #ff4d4f;
+      --mid: #fa8c16;
+      --pri: #52c41a;
+      --kg: #722ed1;
+      --tier1: #d48806;
+      --tier2: #597ef7;
+      --tier3: #13c2c2;
+      --tier4: #8c8c8c;
+      --header-h: 56px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5715;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    .entry-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 20000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: radial-gradient(circle at 20% 20%, #f0f7ff 0%, #e6f4ff 35%, #f0f2f5 100%);
+    }
+    .entry-gate.hidden { display: none; }
+    .entry-card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .entry-title {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--primary-active);
+      letter-spacing: .01em;
+      margin-bottom: 10px;
+    }
+    .entry-subtitle {
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+    .app { max-width: 1600px; margin: 0 auto; }
+
+    /* 顶栏 */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      height: var(--header-h);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-inner {
+      max-width: 1600px;
+      margin: 0 auto;
+      height: 100%;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #1677ff 0%, #0958d9 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .brand-text h1 {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--text);
+    }
+    .brand-text p {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      margin-top: 1px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      margin-left: 8px;
+    }
+    .nav-link {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all .2s;
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: inherit;
+    }
+    .nav-link:hover { color: var(--primary); background: var(--primary-bg); }
+    .nav-meta {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+    .nav-tag {
+      padding: 2px 8px;
+      background: var(--surface-3);
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    /* 信息条 */
+    .info-banner {
+      margin: 16px 24px 0;
+      padding: 12px 16px;
+      background: #fffbe6;
+      border: 1px solid #ffe58f;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: rgba(0,0,0,.75);
+      line-height: 1.6;
+    }
+    .info-banner-icon { flex-shrink: 0; font-size: 16px; margin-top: 1px; }
+    .info-banner-close {
+      margin-left: auto;
+      flex-shrink: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-tertiary);
+      font-size: 18px;
+      line-height: 1;
+      padding: 0 4px;
+    }
+    .info-banner.hidden { display: none; }
+
+    /* 区块 */
+    .section {
+      padding: 20px 24px 0;
+    }
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      gap: 12px;
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .section-desc {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      margin-top: 4px;
+    }
+    .filter-summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      min-height: 28px;
+    }
+    .filter-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 10px;
+      background: var(--primary-bg);
+      border: 1px solid var(--primary-border);
+      border-radius: 4px;
+      font-size: 12px;
+      color: var(--primary-active);
+      cursor: pointer;
+      font-family: inherit;
+      transition: background .15s, border-color .15s;
+    }
+    .filter-tag:hover { background: #bae0ff; border-color: var(--primary); }
+    .filter-tag-x { font-size: 14px; line-height: 1; opacity: .65; margin-left: 2px; }
+
+    /* 筛选面板 */
+    .filter-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: 16px 20px;
+      margin-bottom: 16px;
+    }
+    .toolbar {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 16px;
+      align-items: end;
+    }
+    .toolbar .group { display: flex; flex-direction: column; }
+    .toolbar label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    .toolbar select,
+    .toolbar input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+    }
+    .toolbar select:focus,
+    .toolbar input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(22,119,255,.1);
+    }
+    .toolbar-actions {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+    }
+    .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all .2s;
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .btn:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--primary-hover); border-color: var(--primary-hover); color: #fff; }
+    .chip-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .chip {
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 13px;
+      border: 1px solid var(--border-strong);
+      cursor: pointer;
+      background: var(--surface);
+      color: var(--text-secondary);
+      transition: all .2s;
+    }
+    .chip:hover { border-color: var(--primary); color: var(--primary); }
+    .chip.active {
+      border-color: var(--primary);
+      background: var(--primary-bg);
+      color: var(--primary-active);
+      font-weight: 500;
+    }
+
+    /* 学校列表 */
+    .list-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .list-toolbar {
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: var(--surface);
+      flex-wrap: wrap;
+    }
+    .list-toolbar-title { font-weight: 600; font-size: 14px; }
+    .list-toolbar-count { font-size: 12px; color: var(--text-tertiary); font-weight: 400; margin-left: 8px; }
+    .list-card .table-wrap {
+      max-height: calc(100vh - 340px);
+      min-height: 420px;
+      border: none;
+      border-radius: 0;
+      overflow: auto;
+    }
+    #schoolTable thead th {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--surface-2);
+      box-shadow: 0 1px 0 var(--border);
+    }
+    #schoolTable tr.clickable { cursor: pointer; transition: background .15s; }
+    #schoolTable tr.clickable:hover { background: var(--surface-2); }
+    #schoolTable tr.active { background: var(--primary-bg); box-shadow: inset 3px 0 0 var(--primary); }
+    #schoolTable .cell-name { min-width: 180px; }
+    #schoolTable .cell-name strong { font-size: 14px; font-weight: 500; color: var(--text); }
+    #schoolTable .cell-sub { font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
+    .metric-cell { line-height: 1.45; }
+    .metric-head { font-size: 13px; font-weight: 500; color: var(--text); }
+    .metric-series { font-size: 11px; color: var(--text-tertiary); margin-top: 3px; font-variant-numeric: tabular-nums; }
+    .metrics-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 8px;
+    }
+    .metrics-table th, .metrics-table td {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+    .metrics-table th { background: var(--surface-2); font-weight: 600; color: var(--text-secondary); }
+    .metrics-table td:first-child { text-align: left; font-weight: 500; }
+    .metrics-table .metric-latest { background: var(--primary-bg); font-weight: 600; }
+    .metric-source-hint { font-size: 11px; color: var(--text-tertiary); margin-top: 8px; line-height: 1.6; }
+    .region-tag {
+      display: inline-block;
+      margin-top: 4px;
+      padding: 0 6px;
+      border-radius: 3px;
+      font-size: 11px;
+      background: #f0f5ff;
+      color: #1d39c4;
+      border: 1px solid #adc6ff;
+    }
+    .chip-group-label {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      align-self: center;
+      margin-right: -4px;
+    }
+    .chip-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+      margin: 0 4px;
+      align-self: center;
+    }
+    .empty-state {
+      padding: 48px 24px;
+      text-align: center;
+      color: var(--text-tertiary);
+    }
+    .empty-state-icon { font-size: 40px; margin-bottom: 12px; opacity: .4; }
+    .empty-state p { font-size: 14px; }
+
+    /* 徽章 */
+    .badge {
+      display: inline-block;
+      padding: 0 7px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 20px;
+      margin-right: 4px;
+    }
+    .badge-high { background: #fff1f0; color: #cf1322; border: 1px solid #ffa39e; }
+    .badge-mid { background: #fff7e6; color: #d46b08; border: 1px solid #ffd591; }
+    .badge-pri { background: #f6ffed; color: #389e0d; border: 1px solid #b7eb8f; }
+    .badge-kg { background: #f9f0ff; color: #531dab; border: 1px solid #d3adf7; }
+    .tier-1 { background: #fffbe6; color: #d48806; border: 1px solid #ffe58f; }
+    .tier-2 { background: #f0f5ff; color: #1d39c4; border: 1px solid #adc6ff; }
+    .tier-3 { background: #e6fffb; color: #08979c; border: 1px solid #87e8de; }
+    .tier-4 { background: var(--surface-3); color: var(--text-tertiary); border: 1px solid var(--border-strong); }
+
+    /* 数据洞察区 */
+    .content {
+      padding: 20px 24px 32px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow .2s, transform .2s;
+    }
+    .stat-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+    .stat-card .num {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+      line-height: 1.2;
+    }
+    .stat-card .lbl { font-size: 13px; color: var(--text-tertiary); margin-top: 6px; }
+    .stat-card.highlight .num { color: var(--primary); }
+
+    .tabs-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .tabs {
+      display: flex;
+      gap: 0;
+      padding: 0 16px;
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      background: var(--surface);
+    }
+    .tab {
+      padding: 14px 20px;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--text-secondary);
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: all .2s;
+      margin-bottom: -1px;
+    }
+    .tab:hover { color: var(--primary); }
+    .tab.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 500; }
+    .panel { display: none; padding: 20px 24px 24px; }
+    .panel.active { display: block; }
+    .panel-note {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      margin-bottom: 16px;
+      padding: 10px 14px;
+      background: var(--surface-2);
+      border-radius: 6px;
+      border-left: 3px solid var(--primary);
+    }
+
+    .table-wrap {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: auto;
+      max-height: 520px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--surface);
+    }
+    th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+    th {
+      background: var(--surface-2);
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      white-space: nowrap;
+    }
+    tbody tr:nth-child(even) td { background: #fafafa; }
+    tbody tr:hover td { background: var(--primary-bg) !important; }
+    tr.clickable { cursor: pointer; }
+    td:first-child { font-variant-numeric: tabular-nums; }
+
+    .chart-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 16px 0;
+    }
+    .chart-box {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .chart-box h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+    canvas { max-height: 280px; }
+
+    .policy-box {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-top: 16px;
+    }
+    .policy-box h3 { font-size: 15px; font-weight: 600; margin-bottom: 12px; color: var(--text); }
+    .policy-box p { font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.7; }
+    .policy-box p:last-child { margin-bottom: 0; }
+
+    /* 详情弹窗 */
+    .detail-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.45);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      backdrop-filter: blur(2px);
+    }
+    .detail-modal.open { display: flex; }
+    .detail-card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      max-width: 720px;
+      width: 100%;
+      max-height: 85vh;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+    }
+    .detail-header {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .detail-header h2 { font-size: 18px; font-weight: 600; line-height: 1.4; }
+    .detail-body { padding: 20px 24px; overflow-y: auto; flex: 1; }
+    .detail-footer {
+      padding: 12px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      background: var(--surface-2);
+    }
+    .detail-card .close {
+      cursor: pointer;
+      font-size: 20px;
+      color: var(--text-tertiary);
+      line-height: 1;
+      background: none;
+      border: none;
+      padding: 4px;
+      border-radius: 4px;
+    }
+    .detail-card .close:hover { background: var(--surface-3); color: var(--text); }
+    .detail-section { margin-top: 16px; }
+    .detail-section:first-child { margin-top: 0; }
+    .detail-section h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+    }
+    .detail-section p, .detail-section li { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+    .detail-section ul { padding-left: 18px; }
+    .path-hint { font-size: 12px; color: var(--text-tertiary); margin-bottom: 10px; line-height: 1.6; }
+    .mind-branches {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .mind-branch {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 10px;
+      flex-wrap: wrap;
+    }
+    .mind-branch-col {
+      flex: 1;
+      min-width: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 6px;
+    }
+    .mind-branch-col-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .mind-type-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .mind-type-dot.pri { background: var(--pri); }
+    .mind-type-dot.mid { background: var(--mid); }
+    .mind-type-dot.high { background: var(--high); }
+    .mind-branch-arrow {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      color: var(--text-tertiary);
+      font-size: 18px;
+      padding: 0 2px;
+      align-self: center;
+    }
+    .mind-node {
+      width: 100%;
+      text-align: center;
+      padding: 8px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      font-family: inherit;
+    }
+    .mind-node.clickable {
+      cursor: pointer;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .mind-node.clickable:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+    .mind-node.current {
+      border-color: var(--primary);
+      background: var(--primary-bg);
+      box-shadow: inset 0 0 0 1px var(--primary-border);
+    }
+    .mind-node-text { border-style: dashed; color: var(--text-tertiary); }
+    .mind-node-name { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.4; }
+    .mind-node-meta { font-size: 11px; color: var(--text-tertiary); margin-top: 4px; }
+    .mind-node-actions {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .node-link {
+      font-size: 14px;
+      text-decoration: none;
+      opacity: .75;
+      line-height: 1;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    .node-link:hover { opacity: 1; background: rgba(0,0,0,.06); }
+    .mind-empty-node {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      padding: 8px;
+      border: 1px dashed var(--border-strong);
+      border-radius: 6px;
+      width: 100%;
+      text-align: center;
+    }
+    .mind-hub {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 8px;
+      align-items: center;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 12px;
+    }
+    .mind-hub-col { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+    .mind-hub-col .mind-node { max-width: 160px; }
+    .mind-hub-stack { display: flex; flex-direction: column; gap: 8px; width: 100%; align-items: center; }
+    .detail-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .detail-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 13px;
+      text-decoration: none;
+      border: 1px solid var(--border-strong);
+      color: var(--text-secondary);
+      background: var(--surface-2);
+      transition: all .15s;
+    }
+    .detail-link:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-bg); }
+    .detail-link.detail-map { border-color: #91caff; color: var(--primary-active); background: var(--primary-bg); }
+    .cell-links {
+      display: inline-flex;
+      gap: 6px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+    .cell-link {
+      font-size: 14px;
+      text-decoration: none;
+      opacity: .55;
+      line-height: 1;
+    }
+    .cell-link:hover { opacity: 1; }
+
+    /* 页脚 */
+    footer {
+      margin-top: 24px;
+      padding: 24px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+    .footer-inner {
+      max-width: 1600px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .footer-links { display: flex; gap: 16px; }
+
+    .back-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      box-shadow: var(--shadow-md);
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--text-secondary);
+      z-index: 100;
+      transition: all .2s;
+    }
+    .back-top.visible { display: flex; }
+    .back-top:hover { border-color: var(--primary); color: var(--primary); }
+
+    @media (max-width: 1200px) {
+      .stats-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 1100px) {
+      .chart-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-inner { padding: 0 16px; gap: 12px; }
+      .nav-links { display: none; }
+      .brand-text p { display: none; }
+      .section, .content { padding-left: 16px; padding-right: 16px; }
+      .info-banner { margin: 12px 16px 0; }
+      .filter-panel { padding: 12px 14px; }
+      .toolbar { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .toolbar-actions { grid-column: 1 / -1; }
+      .toolbar select, .toolbar input { font-size: 16px; padding: 10px 12px; }
+      .list-card .table-wrap { max-height: none; min-height: 320px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .stat-card { padding: 14px; }
+      .stat-card .num { font-size: 22px; }
+      .panel { padding: 16px; }
+      .detail-modal { padding: 0; align-items: flex-end; }
+      .detail-card { max-height: 90vh; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+      .back-top { bottom: 20px; right: 16px; }
+    }
+    @media (max-width: 480px) {
+      .toolbar { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+<div class="entry-gate" id="entryGate" role="dialog" aria-modal="true" aria-label="页面访问验证">
+  <div class="entry-card">
+    <div class="entry-title">hello world</div>
+    <div class="entry-subtitle">请输入口令 789 进入主页</div>
+  </div>
+</div>
+<div class="app">
+  <header class="top-nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-icon">苏</div>
+        <div class="brand-text">
+          <h1>苏州教育资源洞察平台</h1>
+          <p>Suzhou Education Intelligence · 2023–2025</p>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <button class="nav-link" onclick="document.getElementById('listSection').scrollIntoView({behavior:'smooth'})">学校列表</button>
+        <button class="nav-link" onclick="document.getElementById('analyticsSection').scrollIntoView({behavior:'smooth'})">数据洞察</button>
+      </nav>
+      <div class="nav-meta">
+        <span class="nav-tag">数据周期 2023–2025</span>
+        <span class="nav-tag">覆盖六区四市</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="info-banner" id="infoBanner">
+    <span class="info-banner-icon">ℹ️</span>
+    <span>苏州教育局不发布官方综合排名。高中排名依据 2025 年六区四市 53 所四星高中统招分数线；初中依据 2025 年苏州中学录取人数。数据来源于苏州市教育考试院及公开汇总，请以官方为准。</span>
+    <button class="info-banner-close" id="closeBanner" aria-label="关闭">×</button>
+  </div>
+
+  <section class="section" id="listSection">
+    <div class="section-head">
+      <div>
+        <div class="section-title">学校列表</div>
+        <div class="section-desc">浏览全市学校信息，支持类型、区域、梯队、性质、板块多维筛选与排序</div>
+      </div>
+      <div class="filter-summary" id="filterSummary"></div>
+    </div>
+
+    <div class="filter-panel">
+      <div class="toolbar">
+        <div class="group">
+          <label for="filterType">学校类型</label>
+          <select id="filterType">
+            <option value="all">全部类型</option>
+            <option value="high">高中（四星）</option>
+            <option value="middle">初中</option>
+            <option value="primary">小学</option>
+            <option value="kindergarten">幼儿园</option>
+          </select>
+        </div>
+        <div class="group">
+          <label for="filterDistrict">行政区域</label>
+          <select id="filterDistrict">
+            <option value="all">全部区域</option>
+            <option value="姑苏区">姑苏区</option>
+            <option value="工业园区">工业园区</option>
+            <option value="高新区">高新区</option>
+            <option value="吴中区">吴中区</option>
+            <option value="相城区">相城区</option>
+            <option value="吴江区">吴江区</option>
+            <option value="昆山市">昆山市</option>
+            <option value="常熟市">常熟市</option>
+            <option value="张家港市">张家港市</option>
+            <option value="太仓市">太仓市</option>
+          </select>
+        </div>
+        <div class="group">
+          <label for="filterTier">梯队筛选</label>
+          <select id="filterTier">
+            <option value="all">全部梯队</option>
+            <option value="1">第一梯队</option>
+            <option value="2">第二梯队</option>
+            <option value="3">第三梯队</option>
+            <option value="4">第四梯队</option>
+          </select>
+        </div>
+        <div class="group">
+          <label for="filterNature">办学性质</label>
+          <select id="filterNature">
+            <option value="all">全部性质</option>
+            <option value="公办">公办（含集团校）</option>
+            <option value="民办">民办</option>
+          </select>
+        </div>
+        <div class="group">
+          <label for="filterRegion">重点板块</label>
+          <select id="filterRegion">
+            <option value="all">全部板块</option>
+            <option value="科技城">科技城</option>
+            <option value="太湖科学城">太湖科学城</option>
+          </select>
+        </div>
+        <div class="group">
+          <label for="filterSort">排序方式</label>
+          <select id="filterSort">
+            <option value="default">默认（类型→梯队）</option>
+            <option value="name">校名 A→Z</option>
+            <option value="tier">梯队优先</option>
+            <option value="rank">高中位次</option>
+            <option value="suzhong">苏中录取人数</option>
+          </select>
+        </div>
+        <div class="group">
+          <label for="filterSearch">搜索</label>
+          <input type="search" id="filterSearch" placeholder="校名、地址、特色…" autocomplete="off">
+        </div>
+        <div class="group toolbar-actions">
+          <label>&nbsp;</label>
+          <button class="btn" id="resetBtn" type="button">重置筛选</button>
+        </div>
+      </div>
+      <div class="chip-bar" id="quickChips">
+        <span class="chip-group-label">类型</span>
+        <span class="chip active" data-filter="type" data-value="all">全部</span>
+        <span class="chip" data-filter="type" data-value="high">高中</span>
+        <span class="chip" data-filter="type" data-value="middle">初中</span>
+        <span class="chip" data-filter="type" data-value="primary">小学</span>
+        <span class="chip" data-filter="type" data-value="kindergarten">幼儿园</span>
+        <span class="chip-divider"></span>
+        <span class="chip-group-label">梯队</span>
+        <span class="chip" data-filter="tier" data-value="all">全部</span>
+        <span class="chip" data-filter="tier" data-value="1">第一梯队</span>
+        <span class="chip" data-filter="tier" data-value="2">第二梯队</span>
+        <span class="chip-divider"></span>
+        <span class="chip-group-label">区域</span>
+        <span class="chip" data-filter="district" data-value="all">全部</span>
+        <span class="chip" data-filter="district" data-value="工业园区">园区</span>
+        <span class="chip" data-filter="district" data-value="姑苏区">姑苏</span>
+        <span class="chip" data-filter="district" data-value="高新区">新区</span>
+        <span class="chip-divider"></span>
+        <span class="chip-group-label">性质</span>
+        <span class="chip" data-filter="nature" data-value="all">全部</span>
+        <span class="chip" data-filter="nature" data-value="公办">公办</span>
+        <span class="chip" data-filter="nature" data-value="民办">民办</span>
+        <span class="chip-divider"></span>
+        <span class="chip-group-label">板块</span>
+        <span class="chip" data-filter="region" data-value="all">全部</span>
+        <span class="chip" data-filter="region" data-value="科技城">科技城</span>
+      </div>
+    </div>
+
+    <div class="list-card">
+      <div class="list-toolbar">
+        <div>
+          <span class="list-toolbar-title">筛选结果</span>
+          <span class="list-toolbar-count">共 <span id="listCount">0</span> 所 · 全市 <span id="totalCount">0</span> 所</span>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table id="schoolTable">
+          <thead>
+            <tr>
+              <th>学校名称</th>
+              <th>类型</th>
+              <th>区域</th>
+              <th>梯队</th>
+              <th>性质</th>
+              <th>关键指标</th>
+            </tr>
+          </thead>
+          <tbody id="schoolList"></tbody>
+        </table>
+        <div id="schoolEmpty" class="empty-state" hidden>
+          <div class="empty-state-icon">∅</div>
+          <p>暂无匹配学校</p>
+          <p style="font-size:12px;margin-top:6px;">请调整筛选条件或点击「重置筛选」</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content" id="analyticsSection">
+    <div class="section-head" style="padding:0;margin-bottom:16px;">
+      <div>
+        <div class="section-title">数据洞察</div>
+        <div class="section-desc">排名对比、升学关联、师资力量与政策要点</div>
+      </div>
+    </div>
+
+    <div class="stats-grid" id="statsGrid"></div>
+
+    <div class="tabs-wrap">
+      <div class="tabs">
+        <div class="tab active" data-panel="relation">升学关联</div>
+        <div class="tab" data-panel="teacher">师资力量</div>
+        <div class="tab" data-panel="policy">政策要点</div>
+      </div>
+
+    <div id="relation" class="panel active">
+      <div class="chart-row">
+        <div class="chart-box"><h3>2025 苏州中学录取人数 TOP10（初中）</h3><canvas id="chartKuangban"></canvas></div>
+        <div class="chart-box"><h3>初中四星率 vs 指标生名额（市三区样本）</h3><canvas id="chartIndicator"></canvas></div>
+      </div>
+      <div class="chart-row">
+        <div class="chart-box"><h3>六区优质初中数量分布（准一线及以上）</h3><canvas id="chartDistrictMid"></canvas></div>
+        <div class="chart-box"><h3>小学→初中→高中 典型升学路径</h3><canvas id="chartPath"></canvas></div>
+      </div>
+      <div class="policy-box">
+        <h3>升学关联要点（2024-2025）</h3>
+        <p><strong>指标生比例：</strong>四星高中区域内招生计划 70% 为指标生（2025年星海升为四星后由35%提至70%）；按各初中毕业生人数比例分配，校内竞争。</p>
+        <p><strong>苏中指标生：</strong>最低控制线 = 苏中统招线 -20分内（2024年苏中指标线约664分，市三区控制线607分）。</p>
+        <p><strong>小升初：</strong>公办按施教区就近入学；民办超额摇号。园区星湾/景城/金鸡湖等九年一贯制，小学部毕业生直升初中部比例高。</p>
+        <p><strong>择校与指标生：</strong>2023级起须地段生/积分入学且连续在籍满3年；吴江择校不享指标生；姑苏/新区/园区/吴中/相城本区择校仍可享指标生。</p>
+        <p><strong>典型路径：</strong>星海小学→星海初中→星海高中；星湾小学→星湾初中→苏大附中/西附；平江实验→振华/草桥→苏中/十中；新实小学→新实初中→苏州实验中学。</p>
+      </div>
+    </div>
+
+    <div id="teacher" class="panel">
+      <div class="chart-row">
+        <div class="chart-box"><h3>重点学校师生比对比</h3><canvas id="chartTeacherRatio"></canvas></div>
+        <div class="chart-box"><h3>高级职称 / 特级教师占比</h3><canvas id="chartSeniorTeacher"></canvas></div>
+      </div>
+    </div>
+
+    <div id="policy" class="panel">
+      <div class="policy-box">
+        <h3>2025 招生政策核心变化</h3>
+        <p>① 中考人数持续攀升：2024 年突破 10 万，2025 年预计超 11 万，竞争加剧。</p>
+        <p>② 星海实验高中 2025 年正式按四星标准执行 70% 指标生，统招名额相应减少。</p>
+        <p>③ 新增四星校区：新实太湖科学城（2025 位次约 18）、苏大附中胜浦路（约 30）、沙溪金仓湖（约 59）。</p>
+        <p>④ 义务教育：姑苏/园区/新区民办学校视为同一招生片区；积分入学 7 月 10 日前公布准入名单。</p>
+        <p>⑤ 幼儿园：无排名，关注省/市优质园评估、普惠民办认定及施教区覆盖。</p>
+      </div>
+      <div class="policy-box" style="margin-top:16px;">
+        <h3>数据来源</h3>
+        <p>苏州市人民政府 · 指标生分配通知（2024/2025）</p>
+        <p>苏州市/各区教育局 · 义务教育招生意见、施教区公告</p>
+        <p>2024–2025 中考分数线位次 · 公开统计资料</p>
+        <p>江苏省教育厅 · 省优质幼儿园名单（2024 年新增 18 所苏州园所）</p>
+        <p>一点升学网 · 2025 苏州中学录取初中生源统计 · 2025 四星高中位次分析</p>
+      </div>
+    </div>
+    </div><!-- tabs-wrap -->
+  </section>
+
+  <div class="detail-modal" id="detailModal" role="dialog" aria-modal="true">
+    <div class="detail-card">
+      <div class="detail-header">
+        <div id="detailHeader"></div>
+        <button class="close" id="closeModal" aria-label="关闭">&times;</button>
+      </div>
+      <div class="detail-body" id="detailContent"></div>
+      <div class="detail-footer">
+        <button class="btn" id="detailCloseBtn">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="back-top" id="backTop" aria-label="回到顶部">↑</button>
+
+  <footer>
+    <div class="footer-inner">
+      <span>苏州教育资源洞察平台 · 数据更新至 2025 年 7 月</span>
+      <div class="footer-links">
+        <span>仅供研究参考</span>
+        <span>请以官方招生政策为准</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+  <script src="school-data.js"></script>
+  <script src="school-pathways.js"></script>
+  <script src="school-links.js"></script>
+  <script src="school-metrics.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script>
+  const TYPE_LABELS = { high:'高中', middle:'初中', primary:'小学', kindergarten:'幼儿园' };
+  const TIER_LABELS = { 1:'第一梯队', 2:'第二梯队', 3:'第三梯队', 4:'第四梯队' };
+  const TYPE_ORDER = { high: 0, middle: 1, primary: 2, kindergarten: 3 };
+  const TYPE_BADGE = { high:'high', middle:'mid', primary:'pri', kindergarten:'kg' };
+  const ENTRY_PASSCODE = '789';
+
+  let activeId = null;
+  let entryBuffer = '';
+
+  function unlockEntryGate() {
+    const gate = document.getElementById('entryGate');
+    if (!gate) return;
+    gate.classList.add('hidden');
+    window.removeEventListener('keydown', onEntryKeydown);
+  }
+
+  function pushEntryInput(digit) {
+    entryBuffer = (entryBuffer + String(digit)).slice(-ENTRY_PASSCODE.length);
+    if (entryBuffer === ENTRY_PASSCODE) unlockEntryGate();
+  }
+
+  function onEntryKeydown(e) {
+    if (/^[0-9]$/.test(e.key)) pushEntryInput(e.key);
+  }
+
+  function initEntryGate() {
+    window.addEventListener('keydown', onEntryKeydown);
+  }
+
+  // ========== 筛选与列表 ==========
+  let filters = {
+    type: 'all', district: 'all', tier: 'all',
+    nature: 'all', region: 'all', search: '', sort: 'default'
+  };
+
+  function isPublicNature(nature) {
+    return nature === '公办' || nature === '公办集团校' || nature === '公办综合高中';
+  }
+
+  function getFiltered() {
+    const q = filters.search.toLowerCase();
+    return SCHOOLS.filter(s => {
+      if (filters.type !== 'all' && s.type !== filters.type) return false;
+      if (filters.district !== 'all' && s.district !== filters.district) return false;
+      if (filters.tier !== 'all' && s.tier !== +filters.tier) return false;
+      if (filters.nature === '公办' && !isPublicNature(s.nature || s.schoolType)) return false;
+      if (filters.nature === '民办' && s.nature !== '民办' && s.schoolType !== '民办') return false;
+      if (filters.region !== 'all' && s.region !== filters.region) return false;
+      if (q) {
+        const hay = [s.name, s.district, s.address, s.features, s.feederMiddle, s.region, s.tierLabel]
+          .filter(Boolean).join(' ').toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
+      return true;
+    });
+  }
+
+  function sortList(list) {
+    const sorted = [...list];
+    switch (filters.sort) {
+      case 'name':
+        return sorted.sort((a, b) => a.name.localeCompare(b.name, 'zh-CN'));
+      case 'tier':
+        return sorted.sort((a, b) => a.tier - b.tier || a.name.localeCompare(b.name, 'zh-CN'));
+      case 'rank':
+        return sorted.sort((a, b) => {
+          const va = a.rank2025 ?? a.rank2024 ?? 9999;
+          const vb = b.rank2025 ?? b.rank2024 ?? 9999;
+          return va - vb || a.name.localeCompare(b.name, 'zh-CN');
+        });
+      case 'suzhong':
+        return sorted.sort((a, b) =>
+          (b.suzhong2025 || 0) - (a.suzhong2025 || 0) || a.tier - b.tier
+        );
+      default:
+        return sorted.sort((a, b) =>
+          (TYPE_ORDER[a.type] ?? 9) - (TYPE_ORDER[b.type] ?? 9) ||
+          a.tier - b.tier ||
+          (a.rank2025 ?? 999) - (b.rank2025 ?? 999) ||
+          (b.suzhong2025 || 0) - (a.suzhong2025 || 0) ||
+          a.name.localeCompare(b.name, 'zh-CN')
+        );
+    }
+  }
+
+  function getDisplayList() {
+    return sortList(getFiltered());
+  }
+
+  function natureLabel(s) {
+    return s.nature || s.schoolType || '—';
+  }
+
+  function formatMetricLine(entry, key, suffix = '') {
+    if (!entry?.[key]) return '';
+    return METRIC_YEARS
+      .map(y => entry[key][y] != null ? `${String(y).slice(2)}:${entry[key][y]}${suffix}` : null)
+      .filter(Boolean)
+      .join(' · ');
+  }
+
+  function getKeyMetric(s) {
+    const m = getSchoolMetrics(s.id);
+    if (s.type === 'high' && m?.high) {
+      const latest = m.high.score?.[2025] ?? s.score2025;
+      const series = formatMetricLine(m.high, 'score');
+      if (latest == null && !series) return '—';
+      return `<div class="metric-cell"><div class="metric-head">${latest != null ? `2025 ${latest}分` : '—'}</div>${series ? `<div class="metric-series">${series}</div>` : ''}</div>`;
+    }
+    if (s.type === 'middle' && m?.middle) {
+      const latest = m.middle.suzhong?.[2025] ?? s.suzhong2025;
+      const series = formatMetricLine(m.middle, 'suzhong', '人') || formatMetricLine(m.middle, 'fourStarRate', '%');
+      if (latest == null && !series) {
+        if (s.fourStarRate != null) return `四星率 ${s.fourStarRate}%`;
+        return '—';
+      }
+      return `<div class="metric-cell"><div class="metric-head">${latest != null ? `2025 苏中 ${latest}人` : (s.fourStarRate != null ? `四星率 ${s.fourStarRate}%` : '—')}</div>${series ? `<div class="metric-series">${series}</div>` : ''}</div>`;
+    }
+    if (s.type === 'primary') {
+      const heat = m?.primary?.heat?.[2025] ?? s.heat;
+      return heat || s.feederMiddle || '—';
+    }
+    if (s.type === 'kindergarten') {
+      return m?.kindergarten?.level?.[2025] ?? s.level ?? s.fee ?? '—';
+    }
+    return '—';
+  }
+
+  function renderMetricsSection(s) {
+    const m = getSchoolMetrics(s.id);
+    if (!m) return '';
+
+    const rows = [];
+    const addRow = (label, entry, key, suffix = '', sources) => {
+      const series = getMetricSeries(entry, key);
+      if (!series.length) return;
+      rows.push({ label, series, suffix, sources: sources || entry.sources?.[key] });
+    };
+
+    if (m.high) {
+      addRow('统招分数线', m.high, 'score', '分', m.high.sources?.score);
+      addRow('全市位次', m.high, 'rank', '', m.high.sources?.score);
+    }
+    if (m.middle) {
+      addRow('苏中录取', m.middle, 'suzhong', '人', m.middle.sources?.suzhong);
+      addRow('四星达线率', m.middle, 'fourStarRate', '%', m.middle.sources?.fourStarRate);
+      addRow('校均分', m.middle, 'avgScore', '分', m.middle.sources?.avgScore);
+    }
+    if (m.primary) addRow('学区热度', m.primary, 'heat', '', m.primary.sources?.heat);
+    if (m.kindergarten) {
+      addRow('评估等级', m.kindergarten, 'level', '', m.kindergarten.sources?.level);
+      addRow('保教费', m.kindergarten, 'fee', '', m.kindergarten.sources?.fee);
+    }
+    if (!rows.length) return '';
+
+    const head = METRIC_YEARS.map(y => `<th>${y}</th>`).join('');
+    const body = rows.map(({ label, series, suffix, sources }) => {
+      const map = Object.fromEntries(series.map(x => [x.year, x.value]));
+      const cells = METRIC_YEARS.map(y => {
+        const cls = y === 2025 ? ' class="metric-latest"' : '';
+        return `<td${cls}>${map[y] != null ? map[y] + suffix : '—'}</td>`;
+      }).join('');
+      const src = (sources || []).map(id => METRIC_SOURCES[id] || id).join('、') || '—';
+      return `<tr><td>${label}<div class="metric-source-hint">来源：${src}</div></td>${cells}</tr>`;
+    }).join('');
+
+    return `<div class="detail-section"><h3>近五年关键指标</h3>
+      <table class="metrics-table"><thead><tr><th>指标</th>${head}</tr></thead><tbody>${body}</tbody></table>
+      <p class="metric-source-hint">数据经 school-data.js 基准值与 zizzs、一点升学网、苏州市人民政府等公开来源交叉校验；2021–2023 部分为推算值，以当年官方发布为准。</p></div>`;
+  }
+
+  function focusSchool(id) {
+    activeId = id;
+    renderList(getDisplayList());
+    requestAnimationFrame(() => {
+      const row = document.querySelector(`#schoolList tr[data-id="${id}"]`);
+      if (row) row.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    });
+  }
+
+  function renderList(list) {
+    const tbody = document.getElementById('schoolList');
+    const table = document.getElementById('schoolTable');
+    const empty = document.getElementById('schoolEmpty');
+    document.getElementById('listCount').textContent = list.length;
+    document.getElementById('totalCount').textContent = SCHOOLS.length;
+    if (!list.length) {
+      tbody.innerHTML = '';
+      table.hidden = true;
+      empty.hidden = false;
+      return;
+    }
+    table.hidden = false;
+    empty.hidden = true;
+    tbody.innerHTML = list.map(s => `
+      <tr class="clickable ${activeId === s.id ? 'active' : ''}" data-id="${s.id}">
+        <td class="cell-name">
+          <strong>${s.name}</strong>${renderCellLinks(s)}
+          ${s.address ? `<div class="cell-sub">${s.address}</div>` : ''}
+          ${s.region ? `<span class="region-tag">${s.region}</span>` : ''}
+        </td>
+        <td><span class="badge badge-${TYPE_BADGE[s.type]}">${TYPE_LABELS[s.type]}</span></td>
+        <td>${s.district}</td>
+        <td><span class="badge tier-${s.tier}">${TIER_LABELS[s.tier]}</span></td>
+        <td>${natureLabel(s)}</td>
+        <td>${getKeyMetric(s)}</td>
+      </tr>`).join('');
+    tbody.querySelectorAll('tr.clickable').forEach(row => {
+      row.addEventListener('click', () => {
+        focusSchool(row.dataset.id);
+        showDetail(row.dataset.id);
+      });
+    });
+  }
+
+  function renderStats(list) {
+    const byType = t => list.filter(s => s.type === t).length;
+    document.getElementById('statsGrid').innerHTML = `
+      <div class="stat-card highlight"><div class="num">${list.length}</div><div class="lbl">当前筛选学校</div></div>
+      <div class="stat-card"><div class="num">${byType('high')}</div><div class="lbl">四星高中</div></div>
+      <div class="stat-card"><div class="num">${byType('middle')}</div><div class="lbl">初中</div></div>
+      <div class="stat-card"><div class="num">${byType('primary')}</div><div class="lbl">小学</div></div>
+      <div class="stat-card"><div class="num">${byType('kindergarten')}</div><div class="lbl">幼儿园</div></div>
+      <div class="stat-card"><div class="num">${list.filter(s => s.tier === 1).length}</div><div class="lbl">第一梯队</div></div>`;
+  }
+
+  function syncFilterUI() {
+    document.getElementById('filterType').value = filters.type;
+    document.getElementById('filterDistrict').value = filters.district;
+    document.getElementById('filterTier').value = filters.tier;
+    document.getElementById('filterNature').value = filters.nature;
+    document.getElementById('filterRegion').value = filters.region;
+    document.getElementById('filterSort').value = filters.sort;
+    document.getElementById('filterSearch').value = filters.search;
+    document.querySelectorAll('.chip[data-filter]').forEach(chip => {
+      chip.classList.toggle('active', String(filters[chip.dataset.filter]) === chip.dataset.value);
+    });
+  }
+
+  function clearFilter(key) {
+    if (key === 'search') filters.search = '';
+    else if (key === 'sort') return;
+    else filters[key] = 'all';
+    syncFilterUI();
+    applyFilters();
+  }
+
+  function updateFilterSummary() {
+    const items = [];
+    if (filters.type !== 'all') items.push({ key: 'type', label: `类型：${TYPE_LABELS[filters.type]}` });
+    if (filters.district !== 'all') items.push({ key: 'district', label: `区域：${filters.district}` });
+    if (filters.tier !== 'all') items.push({ key: 'tier', label: TIER_LABELS[filters.tier] });
+    if (filters.nature !== 'all') items.push({ key: 'nature', label: `性质：${filters.nature}` });
+    if (filters.region !== 'all') items.push({ key: 'region', label: `板块：${filters.region}` });
+    if (filters.search) items.push({ key: 'search', label: `搜索："${filters.search}"` });
+    const el = document.getElementById('filterSummary');
+    el.innerHTML = items.length
+      ? items.map(({ key, label }) =>
+          `<button type="button" class="filter-tag" data-clear="${key}">${label}<span class="filter-tag-x">×</span></button>`
+        ).join('')
+      : `<span style="font-size:12px;color:var(--text-tertiary)">未应用筛选 · 共 ${SCHOOLS.length} 所学校</span>`;
+    el.querySelectorAll('[data-clear]').forEach(btn => {
+      btn.onclick = () => clearFilter(btn.dataset.clear);
+    });
+  }
+
+  function applyFilters() {
+    const list = getDisplayList();
+    if (activeId && !list.some(s => s.id === activeId)) activeId = null;
+    renderList(list);
+    renderStats(list);
+    updateFilterSummary();
+  }
+
+  const filterSelectIds = {
+    filterType: 'type', filterDistrict: 'district', filterTier: 'tier',
+    filterNature: 'nature', filterRegion: 'region', filterSort: 'sort'
+  };
+  Object.entries(filterSelectIds).forEach(([id, key]) => {
+    document.getElementById(id).addEventListener('change', e => {
+      filters[key] = e.target.value;
+      syncFilterUI();
+      applyFilters();
+    });
+  });
+
+  document.getElementById('filterSearch').addEventListener('input', e => {
+    clearTimeout(window._searchTimer);
+    window._searchTimer = setTimeout(() => {
+      filters.search = e.target.value.trim();
+      applyFilters();
+    }, 280);
+  });
+
+  document.getElementById('closeBanner').onclick = () => document.getElementById('infoBanner').classList.add('hidden');
+
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    filters = { type:'all', district:'all', tier:'all', nature:'all', region:'all', search:'', sort:'default' };
+    syncFilterUI();
+    applyFilters();
+  });
+
+  document.getElementById('quickChips').addEventListener('click', e => {
+    const chip = e.target.closest('.chip');
+    if (!chip || !chip.dataset.filter) return;
+    const { filter, value } = chip.dataset;
+    filters[filter] = filters[filter] === value && value !== 'all' ? 'all' : value;
+    syncFilterUI();
+    applyFilters();
+  });
+
+  function getSchoolWebsite(s) {
+    const verified = SCHOOL_LINKS[s.id]?.website;
+    if (verified) return { url: verified, verified: true };
+    return {
+      url: `https://www.baidu.com/s?wd=${encodeURIComponent(s.name + ' 官方网站')}`,
+      verified: false
+    };
+  }
+
+  function getGaodeMapUrl(s) {
+    if (s.lat != null && s.lng != null) {
+      return `https://uri.amap.com/marker?position=${s.lng},${s.lat}&name=${encodeURIComponent(s.name)}&callnative=0`;
+    }
+    const q = s.address ? `${s.name} ${s.address}` : s.name;
+    return `https://uri.amap.com/search?query=${encodeURIComponent(q)}&city=苏州`;
+  }
+
+  function renderSchoolActionLinks(s) {
+    const web = getSchoolWebsite(s);
+    const mapUrl = getGaodeMapUrl(s);
+    return `<div class="detail-actions">
+      <a href="${web.url}" target="_blank" rel="noopener" class="detail-link">${web.verified ? '官网' : '搜索官网'}</a>
+      <a href="${mapUrl}" target="_blank" rel="noopener" class="detail-link detail-map">📍 高德地图</a>
+    </div>`;
+  }
+
+  function renderCellLinks(s) {
+    const web = getSchoolWebsite(s);
+    const mapUrl = getGaodeMapUrl(s);
+    return `<span class="cell-links">
+      <a href="${web.url}" target="_blank" rel="noopener" class="cell-link" title="${web.verified ? '官网' : '搜索官网'}" onclick="event.stopPropagation()">🔗</a>
+      <a href="${mapUrl}" target="_blank" rel="noopener" class="cell-link" title="高德地图" onclick="event.stopPropagation()">📍</a>
+    </span>`;
+  }
+
+  // ========== 升学链路（显式 ID 映射，见 school-pathways.js） ==========
+  function getPrimariesForMiddle(middle) {
+    return getPrimaryIdsForMiddle(middle.id)
+      .map(id => schoolById(id))
+      .filter(Boolean);
+  }
+
+  function getMiddlesForHigh(high) {
+    return getMiddleIdsForHigh(high.id)
+      .map(id => schoolById(id))
+      .filter(Boolean)
+      .sort((a, b) => a.tier - b.tier || (b.suzhong2025 || 0) - (a.suzhong2025 || 0));
+  }
+
+  function resolveFeederHighs(middle) {
+    return getHighIdsForMiddle(middle.id)
+      .map(id => schoolById(id))
+      .filter(Boolean)
+      .sort((a, b) => a.tier - b.tier);
+  }
+
+  function getMiddlesForPrimary(primary) {
+    return getMiddleIdsForPrimary(primary.id)
+      .map(id => schoolById(id))
+      .filter(Boolean)
+      .sort((a, b) => a.tier - b.tier);
+  }
+
+  function buildPathBranches(s) {
+    const branches = [];
+
+    if (s.type === 'primary') {
+      const middles = getMiddlesForPrimary(s);
+      middles.forEach(m => {
+        const highs = resolveFeederHighs(m);
+        if (highs.length) highs.forEach(h => branches.push([s, m, h]));
+        else branches.push([s, m, null]);
+      });
+    } else if (s.type === 'middle') {
+      const primaries = getPrimariesForMiddle(s);
+      const highs = resolveFeederHighs(s);
+      if (primaries.length && highs.length) {
+        primaries.forEach(p => highs.forEach(h => branches.push([p, s, h])));
+      } else if (primaries.length) {
+        primaries.forEach(p => branches.push([p, s, null]));
+      } else if (highs.length) {
+        highs.forEach(h => branches.push([null, s, h]));
+      }
+    } else if (s.type === 'high') {
+      getMiddlesForHigh(s)
+        .sort((a, b) => a.tier - b.tier || (b.suzhong2025 || 0) - (a.suzhong2025 || 0))
+        .forEach(m => {
+          const primaries = getPrimariesForMiddle(m);
+          if (primaries.length) primaries.forEach(p => branches.push([p, m, s]));
+          else branches.push([null, m, s]);
+        });
+    }
+
+    const seen = new Set();
+    return branches.filter(([p, m, h]) => {
+      const key = `${p?.id || p?.name || ''}|${m?.id || m?.name || ''}|${h?.id || h?.name || ''}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }
+
+  function mindMapNodeActions(school) {
+    if (!school || school._textOnly) return '';
+    const web = getSchoolWebsite(school);
+    const mapUrl = getGaodeMapUrl(school);
+    return `<div class="mind-node-actions">
+      <a href="${web.url}" target="_blank" rel="noopener" class="node-link" title="${web.verified ? '官网' : '搜索官网'}" onclick="event.stopPropagation()">🔗</a>
+      <a href="${mapUrl}" target="_blank" rel="noopener" class="node-link" title="高德地图" onclick="event.stopPropagation()">📍</a>
+    </div>`;
+  }
+
+  function mindMapNode(school, currentId) {
+    if (!school) return '<div class="mind-empty-node">暂无</div>';
+    if (school._textOnly) {
+      return `<div class="mind-node mind-node-text"><div class="mind-node-name">${school.name}</div></div>`;
+    }
+    const isCurrent = school.id === currentId;
+    const tierMeta = school.tier ? TIER_LABELS[school.tier] : '';
+    const tag = isCurrent ? 'div' : 'button';
+    const attrs = isCurrent ? '' : ` type="button" data-path-id="${school.id}"`;
+    return `<${tag} class="mind-node mind-node-${school.type} ${isCurrent ? 'current' : 'clickable'}"${attrs}>
+      <div class="mind-node-name">${school.name}</div>
+      ${tierMeta ? `<div class="mind-node-meta">${tierMeta}</div>` : ''}
+      ${mindMapNodeActions(school)}
+    </${tag}>`;
+  }
+
+  function buildMindBranchRow(primary, middle, high, currentId) {
+    const cols = [
+      { type: 'pri', label: '小学', node: primary },
+      { type: 'mid', label: '初中', node: middle },
+      { type: 'high', label: '高中', node: high }
+    ];
+    return `<div class="mind-branch">${cols.map((col, i) => `
+      ${i ? '<div class="mind-branch-arrow">→</div>' : ''}
+      <div class="mind-branch-col">
+        <div class="mind-branch-col-title"><span class="mind-type-dot ${col.type}"></span>${col.label}</div>
+        ${mindMapNode(col.node, currentId)}
+      </div>`).join('')}</div>`;
+  }
+
+  function renderPathwaySection(s) {
+    if (!['primary', 'middle', 'high'].includes(s.type)) return '';
+
+    const branches = buildPathBranches(s);
+    if (!branches.length) {
+      return `<div class="detail-section"><h3>升学链路</h3>
+        <p class="path-hint">暂无小→初→高完整链路数据。</p></div>`;
+    }
+
+    const branchesHtml = branches.map(([p, m, h]) => buildMindBranchRow(p, m, h, s.id)).join('');
+
+    return `<div class="detail-section"><h3>升学链路</h3>
+      <p class="path-hint">共 ${branches.length} 条路径 · 小学 → 初中 → 高中（school-pathways.js 显式映射，已按校区拆分，非模糊校名匹配）。点击学校查看详情，🔗 官网 · 📍 高德地图。</p>
+      <div class="mind-branches">${branchesHtml}</div></div>`;
+  }
+
+  // ========== 详情弹窗 ==========
+  let detailSchoolId = null;
+
+  function showDetail(id) {
+    activeId = id;
+    detailSchoolId = id;
+    const s = SCHOOLS.find(x => x.id === id);
+    if (!s) return;
+    renderList(getDisplayList());
+
+    document.getElementById('detailHeader').innerHTML = `
+      <div>
+        <h2>${s.name}</h2>
+        <div style="margin-top:8px;">
+          <span class="badge badge-${s.type==='high'?'high':s.type==='middle'?'mid':s.type==='primary'?'pri':'kg'}">${TYPE_LABELS[s.type]}</span>
+          <span class="badge tier-${s.tier}">${TIER_LABELS[s.tier]}</span>
+          <span class="badge tier-4">${s.district}</span>
+        </div>
+        ${renderSchoolActionLinks(s)}
+      </div>`;
+
+    let html = '';
+    if (s.type === 'high') {
+      html += `<div class="detail-section"><h3>录取数据</h3><ul>
+        <li>2024统招位次：第 ${s.rank2024 ?? '—'} 名 · 分数线 ${s.score2024 ?? '—'} 分</li>
+        <li>2025统招位次：第 ${s.rank2025 ?? '—'} 名 · 分数线 ${s.score2025 ?? '—'} 分</li>
+        <li>参考本科率：${s.undergradRate ?? '—'}%</li>
+        <li>指标生比例：${s.indicatorRatio ?? '—'}%</li></ul></div>`;
+      html += renderPathwaySection(s);
+    }
+    if (s.type === 'middle') {
+      html += `<div class="detail-section"><h3>2024–2025 升学</h3><ul>
+        <li>2025 苏州中学录取：约 ${s.suzhong2025 ?? '—'} 人</li>
+        <li>2024 校均分：${s.avgScore2024 ?? '—'} · 四星率：${s.fourStarRate ?? '—'}%</li>
+        <li>2024 匡班录取：${s.kuangban2024 ?? 0} 人</li>
+        <li>分配到苏中指标生：约 ${s.indicatorQuota ?? '—'} 人/年</li></ul></div>`;
+      html += renderPathwaySection(s);
+    }
+    if (s.type === 'primary') {
+      html += `<div class="detail-section"><h3>升学关联</h3><ul>
+        <li>性质：${s.schoolType}</li>
+        <li>对口/关联初中：${s.feederMiddle || '—'}</li>
+        <li>学区热度：${s.heat || '—'}</li></ul></div>`;
+      html += renderPathwaySection(s);
+    }
+    if (s.type === 'kindergarten') {
+      html += `<div class="detail-section"><h3>办园信息</h3><ul>
+        <li>评估等级：${s.level}</li>
+        <li>性质：${s.schoolType}</li>
+        <li>参考保教费：${s.fee}</li></ul></div>`;
+    }
+    if (s.teacherCount) {
+      html += `<div class="detail-section"><h3>师资</h3><ul>
+        <li>教师 ${s.teacherCount} 人 · 学生约 ${s.studentCount} 人 · 师生比约 1:${Math.round(s.studentCount/s.teacherCount)}</li>
+        <li>高级教师占比 ${s.seniorTeacherRate}% · 特级教师 ${s.specialTeacher} 人</li></ul></div>`;
+    }
+    html += renderMetricsSection(s);
+    html += `<div class="detail-section"><h3>备注</h3><p>${s.features || '—'}</p></div>`;
+    document.getElementById('detailContent').innerHTML = html;
+    document.getElementById('detailModal').classList.add('open');
+  }
+
+  function closeDetail() {
+    document.getElementById('detailModal').classList.remove('open');
+  }
+  document.getElementById('closeModal').onclick = closeDetail;
+  document.getElementById('detailCloseBtn').onclick = closeDetail;
+  document.getElementById('detailContent').addEventListener('click', e => {
+    const btn = e.target.closest('[data-path-id]');
+    if (btn) showDetail(btn.dataset.pathId);
+  });
+  document.getElementById('detailModal').onclick = e => { if (e.target.id === 'detailModal') closeDetail(); };
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(); });
+
+  const backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    backTop.classList.toggle('visible', window.scrollY > 400);
+  }, { passive: true });
+  backTop.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // ========== Tabs ==========
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.panel).classList.add('active');
+    });
+  });
+
+  // ========== Charts ==========
+  const chartOpts = {
+    responsive: true,
+    plugins: { legend: { labels: { color: 'rgba(0,0,0,.65)', font: { size: 12 } } } },
+    scales: {
+      x: { ticks: { color: 'rgba(0,0,0,.45)' }, grid: { color: '#f0f0f0' } },
+      y: { ticks: { color: 'rgba(0,0,0,.45)' }, grid: { color: '#f0f0f0' } }
+    }
+  };
+
+  new Chart(document.getElementById('chartKuangban'), {
+    type: 'bar',
+    data: {
+      labels: ['伟长实验部','园区校初中','星海初中','新实金山路','西附初中','立达','星湾','金鸡湖','振华','草桥'],
+      datasets: [{ label: '2025苏中录取(人)', data: [82,57,35,29,27,21,18,17,17,15], backgroundColor: '#1677ff', borderRadius: 4 }]
+    },
+    options: chartOpts
+  });
+
+  new Chart(document.getElementById('chartIndicator'), {
+    type: 'scatter',
+    data: {
+      datasets: [{
+        label: '市三区初中样本',
+        data: [
+          {x:90,y:76,label:'星海'}, {x:85,y:5,label:'振华'}, {x:82,y:5,label:'立达'},
+          {x:74,y:12,label:'西附'}, {x:55,y:8,label:'南环'}, {x:70,y:4,label:'草桥'}
+        ],
+        backgroundColor: '#fa8c16'
+      }]
+    },
+    options: {
+      ...chartOpts,
+      scales: {
+        x: { title: { display:true, text:'四星率 %', color:'rgba(0,0,0,.45)' }, ticks:{color:'rgba(0,0,0,.45)'}, grid:{color:'#f0f0f0'} },
+        y: { title: { display:true, text:'苏中指标名额', color:'rgba(0,0,0,.45)' }, ticks:{color:'rgba(0,0,0,.45)'}, grid:{color:'#f0f0f0'} }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('chartDistrictMid'), {
+    type: 'doughnut',
+    data: {
+      labels: ['工业园区','姑苏区','高新区','相城区','吴中区','吴江区'],
+      datasets: [{ data: [6,8,5,4,4,4], backgroundColor: ['#1677ff','#fa8c16','#52c41a','#722ed1','#13c2c2','#eb2f96'] }]
+    },
+    options: { responsive: true, plugins: { legend: { labels: { color: 'rgba(0,0,0,.65)' } } } }
+  });
+
+  new Chart(document.getElementById('chartPath'), {
+    type: 'bar',
+    data: {
+      labels: ['星海链路','星湾链路','振华链路','新实链路','指标生捡漏'],
+      datasets: [
+        { label: '小学→初中衔接', data: [95,92,70,88,60], backgroundColor: '#52c41a', borderRadius: 4 },
+        { label: '初中→四星高中', data: [90,78,85,80,55], backgroundColor: '#1677ff', borderRadius: 4 }
+      ]
+    },
+    options: { ...chartOpts, indexAxis: 'y' }
+  });
+
+  new Chart(document.getElementById('chartTeacherRatio'), {
+    type: 'bar',
+    data: {
+      labels: ['苏州中学','星海高中','园区校','昆山中学','新实','十中'],
+      datasets: [{ label: '师生比(学生/教师)', data: [7.5,6.3,8.6,8.6,8.1,7.9], backgroundColor: '#13c2c2', borderRadius: 4 }]
+    },
+    options: chartOpts
+  });
+
+  new Chart(document.getElementById('chartSeniorTeacher'), {
+    type: 'radar',
+    data: {
+      labels: ['高级教师占比','特级教师','本科率','指标生覆盖','自招渠道'],
+      datasets: [
+        { label: '苏州中学', data: [95,100,100,90,85], borderColor: '#ff4d4f', backgroundColor: 'rgba(255,77,79,.15)' },
+        { label: '星海高中', data: [80,60,95,85,90], borderColor: '#fa8c16', backgroundColor: 'rgba(250,140,22,.15)' },
+        { label: '南环中学', data: [40,10,55,95,20], borderColor: '#52c41a', backgroundColor: 'rgba(82,196,26,.15)' }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { labels: { color: 'rgba(0,0,0,.65)' } } },
+      scales: { r: { ticks: { display: false }, grid: { color: '#f0f0f0' }, pointLabels: { color: 'rgba(0,0,0,.65)' } } }
+    }
+  });
+
+  // ========== 初始化 ==========
+  initEntryGate();
+  applyFilters();
+  </script>
+</body>
+</html>

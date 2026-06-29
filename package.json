@@ -1,0 +1,22 @@
+{
+  "name": "school",
+  "version": "1.0.0",
+  "description": "",
+  "main": "apply-coords.js",
+  "scripts": {
+    "apply-coords": "node apply-coords.js",
+    "serve": "npx serve . -l 5500"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shen527/school.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/shen527/school/issues"
+  },
+  "homepage": "https://github.com/shen527/school#readme"
+}
