@@ -1766,27 +1766,37 @@
   <script>
   (() => {
     const PASSCODE = '789';
+    const ENTRY_UNLOCK_KEY = 'school-entry-unlocked-v1';
     const gate = document.getElementById('entryGate');
     const input = document.getElementById('entryInput');
     const app = document.getElementById('mainApp');
     const mainAppScript = document.getElementById('mainAppScript');
     let unlocked = false;
 
-    const scriptsToLoad = [
+    const coreScripts = [
       'school-data.js',
       'school-pathways.js',
       'school-links.js',
-      'school-metrics.js',
+      'school-metrics.js'
+    ];
+    const optionalScripts = [
       'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js'
     ];
 
     function loadScript(src) {
       return new Promise((resolve, reject) => {
         const script = document.createElement('script');
+        const timeoutId = setTimeout(() => reject(new Error(`Timeout loading ${src}`)), 10000);
         script.src = src;
         script.async = false;
-        script.onload = resolve;
-        script.onerror = reject;
+        script.onload = () => {
+          clearTimeout(timeoutId);
+          resolve();
+        };
+        script.onerror = () => {
+          clearTimeout(timeoutId);
+          reject(new Error(`Failed loading ${src}`));
+        };
         document.body.appendChild(script);
       });
     }
@@ -1794,10 +1804,23 @@
     async function unlockAndBoot() {
       if (unlocked) return;
       unlocked = true;
+      try {
+        localStorage.setItem(ENTRY_UNLOCK_KEY, '1');
+      } catch (_) {}
       gate.remove();
       app.classList.remove('hidden');
-      for (const src of scriptsToLoad) {
+      for (const src of coreScripts) {
         await loadScript(src);
+      }
+      for (const src of optionalScripts) {
+        try {
+          await loadScript(src);
+        } catch (err) {
+          console.warn(err);
+        }
+      }
+      if (typeof window.Chart !== 'function') {
+        window.Chart = function Chart() {};
       }
       const bootScript = document.createElement('script');
       bootScript.text = mainAppScript.textContent;
@@ -1810,7 +1833,16 @@
       if (digits.includes(PASSCODE)) unlockAndBoot();
     });
 
-    requestAnimationFrame(() => input.focus());
+    let alreadyUnlocked = false;
+    try {
+      alreadyUnlocked = localStorage.getItem(ENTRY_UNLOCK_KEY) === '1';
+    } catch (_) {}
+
+    if (alreadyUnlocked) {
+      unlockAndBoot();
+    } else {
+      requestAnimationFrame(() => input.focus());
+    }
   })();
   </script>
 </body>
