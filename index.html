@@ -1285,6 +1285,39 @@
       <p class="metric-source-hint">数据经 school-data.js 基准值与 zizzs、一点升学网、苏州市人民政府等公开来源交叉校验；2021–2023 部分为推算值，以当年官方发布为准。</p></div>`;
   }
 
+  function renderCatchmentSection(s) {
+    const item = window.SCHOOL_CATCHMENTS?.[s.id];
+    if (!item?.communities?.length) {
+      if (!['primary', 'middle'].includes(s.type)) return '';
+      const districtUrls = {
+        '姑苏区': 'https://www.gusu.gov.cn/gsq/ywjy/202505/5d5f2979d6814cc3a06901d9ac38925f.shtml',
+        '高新区': 'https://jyj.suzhou.gov.cn/szjyj/sjq/202511/300d07a728a84597b40f894b80b4304a.shtml',
+        '吴中区': 'https://jyj.suzhou.gov.cn/szjyj/sjq/202511/25974f1ed85948e8b727b433fa70ec32.shtml',
+        '相城区': 'https://jyj.suzhou.gov.cn/szjyj/sjq/202511/4582dff24740411b9b73efc5810a5e4f.shtml',
+        '吴江区': 'http://jyj.suzhou.gov.cn/szjyj/sjq/202511/9bd6c462f8814bed9f2e96cd1fa6fd97.shtml'
+      };
+      const districtLink = districtUrls[s.district]
+        ? `<a href="${districtUrls[s.district]}" target="_blank" rel="noopener">${s.district}施教区页面</a> · `
+        : '';
+      return `<div class="detail-section"><h3>施教范围（含小区）</h3>
+        <p class="path-hint">该校暂未完成小区清单结构化整理，可先通过官方入口查询当年公告。</p>
+        <p class="metric-source-hint">官方入口：
+          ${districtLink}<a href="https://jyj.suzhou.gov.cn/szjyj/sjq/jyfw_list.shtml" target="_blank" rel="noopener">苏州市教育局 · 施教区专栏</a>
+        </p>
+      </div>`;
+    }
+    const communitiesHtml = item.communities.map(name => `<li>${name}</li>`).join('');
+    const sourcesHtml = (item.sources || [])
+      .map(src => `<a href="${src.url}" target="_blank" rel="noopener">${src.name}</a>`)
+      .join(' · ');
+    return `<div class="detail-section"><h3>施教范围（含小区）</h3>
+      <p class="path-hint">学年：${item.schoolYear || '—'}（按公开公告整理，最终以当年官方发布为准）</p>
+      <ul>${communitiesHtml}</ul>
+      ${item.notes ? `<p class="metric-source-hint">${item.notes}</p>` : ''}
+      ${sourcesHtml ? `<p class="metric-source-hint">来源：${sourcesHtml}</p>` : ''}
+    </div>`;
+  }
+
   function focusSchool(id) {
     activeId = id;
     renderList(getDisplayList());
@@ -1639,6 +1672,7 @@
         <li>教师 ${s.teacherCount} 人 · 学生约 ${s.studentCount} 人 · 师生比约 1:${Math.round(s.studentCount/s.teacherCount)}</li>
         <li>高级教师占比 ${s.seniorTeacherRate}% · 特级教师 ${s.specialTeacher} 人</li></ul></div>`;
     }
+    html += renderCatchmentSection(s);
     html += renderMetricsSection(s);
     html += `<div class="detail-section"><h3>备注</h3><p>${s.features || '—'}</p></div>`;
     document.getElementById('detailContent').innerHTML = html;
@@ -1777,7 +1811,8 @@
       'school-data.js',
       'school-pathways.js',
       'school-links.js',
-      'school-metrics.js'
+      'school-metrics.js',
+      'school-catchments.js'
     ];
     const optionalScripts = [
       'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js'
